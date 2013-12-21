@@ -7,13 +7,15 @@ angular.module('app', []);
 angular.module('app').factory('appServerSvc', function ($http) {
 	return {
 		call: function () {
-			return $http.get('/login').then(function (ret) {
-				return ret.headers('X-User-Name');
+			return $http.get('/angular-1.2.5/version.txt').then(function (ret) {
+				return ret.data;
 			});
 		}
 	};
 });
 
-angular.module('app').controller('appFeedbackCtrl', function ($scope) {
-	$scope.text = 'ciao';
+angular.module('app').controller('appFeedbackCtrl', function ($scope, appServerSvc) {
+	appServerSvc.call().then(function (ret) {
+		console.log(ret);
+	})
 });
